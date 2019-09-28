@@ -1,9 +1,9 @@
-{% macro displayCategoryList(category_list) %}
-{% for category in category_list%}
+{% macro displayBlogList(blog_list) %}
+{% for blog in blog_list%}
 
 <div>
-    <a href="{{url_for('main.category',id=category.id)}}">
-        <p>{{category.cat_name|upper}}</p>
+    <a href="{{url_for('main.blog',blog_id=blog.id)}}">
+        <p>{{blog.blog_name|upper}}</p>
     </a>
 </div>
 {% endfor %} -->
@@ -13,16 +13,17 @@
 <div class="container-fluid">
     <div class="row">
         {% if blogs %}
-        {% for description in blogs %}
+        {% for blog in blogs %}
         <div class="col-md-4">
             <div class="thumbnail" id="carded">
                 
                 <div class="card-body text-center">
-                    <p>{{description.post}}</p>
-                    <p class="text-center">description: {{description.description}}</p>
-                    <p>description:{{description.description}}</p>
+                    <p>{{blog.post}}</p>
+                    <p class="text-center">blog: {{blog.blog}}</p>
+                    <!-- <p>blog:{{blog.blog}}</p> -->
                     <footer class="blockquote-footer text-center" style="color:chocolate"> written by:
-                        {{description.users.username}}</footer><br>
+                        {{blog.users.username}}</footer><br>
+                        <a href="/comment/{{blog.id}}/new">comment</a>
 
 
                 </div>

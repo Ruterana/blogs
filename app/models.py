@@ -13,6 +13,8 @@ class User(UserMixin,db.Model):
     profile_pic_path = db.Column(db.String())
     password_hash = db.Column(db.String())
     blogs = db.relationship('Blog',backref = 'users',lazy="dynamic")
+    comments = db.relationship('Comment',backref = 'users',lazy="dynamic")
+
     @property
     def password(self):
          raise AttributeError('You cannot read the password attribute')
@@ -30,12 +32,12 @@ class User(UserMixin,db.Model):
 
 class Blog(db.Model):
     __tablename__ = 'blogs'
-    blog_id = db.Column(db.Integer,primary_key = True)
+    id = db.Column(db.Integer,primary_key = True)
     writted = db.Column(db.DateTime,default=datetime.utcnow)
     title =db.Column(db.String(255))
     description = db.Column(db.String(255))
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-    # category = db.Column(db.String(255), nullable=False)
+    comment_id =db.relationship("Comment",backref='blogs',lazy="dynamic")
     
     @classmethod
     def get_blogs(cls,id):
@@ -44,4 +46,16 @@ class Blog(db.Model):
     def __repr__(self):
         return f'Blog{self.description}'
 
-
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer,primary_key = True)
+    posted_on = db.Column(db.DateTime,default=datetime.utcnow)
+    description = db.Column(db.String(255))
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    blog_id = db.Column(db.Integer,db.ForeignKey("blogs.id"))
+    @classmethod
+    def get_comments(cls,id):
+        comment =Comment.query.filter_by(blog_id=id).all()
+        return comment
+    def __repr__(self):
+        return f'Blog{self.description}'
