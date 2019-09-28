@@ -41,7 +41,8 @@ class Blog(db.Model):
     
     @classmethod
     def get_blogs(cls,id):
-        blog =Blog.query.filter_by(blog_id=blog_id).all()
+        blog = blog.query.all()
+        # blog =Blog.query.filter_by(blog_id=blog_id).all()
         return Blog
     def __repr__(self):
         return f'Blog{self.description}'

@@ -12,10 +12,10 @@ def index():
     View root page function that returns the index page and its data
     '''
     
-    blogs = Blog.query.all()
+    blog = Blog.query.all()
     title = 'Welcome to blog app'
     
-    return render_template('index.html', title = title,blogs=blogs)
+    return render_template('index.html', title = title,blogs=blog)
 
 
 
@@ -37,7 +37,7 @@ def new_blog():
 @main.route('/comment/<int:id>/new',methods=['GET','POST'])
 @login_required
 def new_comment(id):
-    commentForm= commentForm()
+    form= commentForm()
     blog =Blog.query.filter_by(id=id).first()
     if form.validate_on_submit():
         description = form.description.data
@@ -45,4 +45,4 @@ def new_comment(id):
         db.session.add(new_comment)
         db.session.commit()
         return redirect (url_for('main.index'))
-    return render_template('comment.html',comment_form=commentForm)
+    return render_template('comment.html',comment_form=form)
