@@ -6,7 +6,7 @@
         <p>{{blog.blog_name|upper}}</p>
     </a>
 </div>
-{% endfor %} -->
+{% endfor %} 
 {% endmacro %}
 
 {% macro display(blogs) %}
@@ -23,18 +23,31 @@
                     <!-- <p>blog:{{blog.blog}}</p> -->
                     <footer class="blockquote-footer text-center" style="color:chocolate"> written by:
                         {{blog.users.username}}</footer><br>
-                        <a href="/comment/{{blog.id}}/new">comment</a>
+                        <a href='/comment/'int:blog_id>'>comment</a>
+                       
 
 
                 </div>
 
             </div>
+            
         </div>
     </div>
+    {% macro displayComments(comments) %} {% for comment in comments %}
 
-</div>
-{% endfor %}
+    <div class="container">
+        <h3 class="name">{{comment.username}}</h3>
+    
+        <p>{{comment.content}}</p>
+          <!-- <a href="/delete/comment/{{comment.id}}" class="=btn btn-primary">Delete Comment</a>  -->
+    </div>
+    
+    
+    
+    <!-- {%endfor%} {%endmacro%} -->
+    {% endfor %}
 {% endif %}
 
 
 {% endmacro %}
+</div>

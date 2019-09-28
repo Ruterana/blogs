@@ -34,19 +34,62 @@ def new_blog():
         db.session.commit()
         return redirect (url_for('main.index'))
     return render_template('blog.html',blog_form=form)
-@main.route('/comment/<int:id>/new',methods=['GET','POST'])
-@login_required
-def new_comment(id):
-    form=commentForm()
-    blog =Blog.query.filter_by(id=id).first()
-    comments = comment.query.filter_by(id = id).all()
+# @main.route('/comment/<int:id>/new',methods=['GET','POST'])
+# @login_required
+# def new_comment(id):
+#     form=commentForm()
+#     blog =Blog.query.filter_by(id=id).first()
+#     comments = comment.query.filter_by(id = id).all()
+#     if form.validate_on_submit():
+#         description = form.description.data
+#         id = id
+#         user_id = current_user ._get_current_object().id
+#         new_comment =Comment(user_id =current_user._get_current_object().id, title = title,description=description,blog=blog,comment=comment)
+#         new_comment.save_comments()
+#         db.session.add(new_comment)
+#         db.session.commit()
+#         return redirect (url_for('main.index'))
+#     return render_template('comment.html',form=form,blogs=blogs)
+
+@main.route('/comment/<int:blog_id>', methods=['GET','POST'])
+def comment(blog_id):
+
+    form = CommentForm()
+    blogs = Blog.query.get(blog_id)
+    comments = Comment.query.filter_by(blog_id=blog_id).all()
+
     if form.validate_on_submit():
-        description = form.description.data
-        id = id
-        user_id = current_user ._get_current_object().id
-        new_comment =Comment(user_id =current_user._get_current_object().id, title = title,description=description,blog=blog,comment=comment)
+        comment = form.comment.data
+        blog_id = blog_id
+    
+        user_id = current_user._get_current_object().id
+        new_comment = Comment(comment = comment,blog_id = blog_id,user_id = user_id)
         new_comment.save_comments()
-        db.session.add(new_comment)
-        db.session.commit()
-        return redirect (url_for('main.index'))
-    return render_template('comment.html',form=form,blogs=blogs)
+        
+        return redirect(url_for('.comment',blog_id = blog_id))
+    return render_template('comment.html',form = form,blogs = blogs,comments = comments)
+
+@main.route('/index/<int:id>/delete', methods = ['GET','POST'])
+@login_required
+def delete(id):
+    current_post = Blog.query.filter_by(id = id).first()
+
+    if current_post.user != current_user:
+        abort(404)
+    db.session.delete(current_post)
+    db.session.commit()
+    return redirect(url_for('.index'))
+
+@main.route('/index/<int:id>/delete_comment', methods = ['GET','POST'])
+@login_required
+def delete_comment(id):
+
+    current_post = Comment.query.filter_by(id = id).first()
+
+    if current_post.user != user_user:
+        abort(404)
+
+    db.session.delete(current_post)
+    db.session.commit()
+    return redirect(url_for('.index'))
+    return render_template('comment.html',current_post = current_post)

@@ -44,14 +44,24 @@ class Blog(db.Model):
         blog = blog.query.all()
         # blog =Blog.query.filter_by(blog_id=blog_id).all()
         return Blog
+    
+    def delete(self, id):
+        comments = Comment.query.filter_by(id = id).all()
+        for comment in comments:
+            db.session.delete(comment)
+            db.session.commit()
+        db.session.delete(self)
+        db.session.commit()
     def __repr__(self):
         return f'Blog{self.description}'
+    
+
 
 class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer,primary_key = True)
-    posted_on = db.Column(db.DateTime,default=datetime.utcnow)
-    description = db.Column(db.String(255))
+    # posted_on = db.Column(db.DateTime,default=datetime.utcnow)
+    comment= db.Column(db.String(255))
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     blog_id = db.Column(db.Integer,db.ForeignKey("blogs.id"))
     def save_comments(self):
@@ -61,12 +71,12 @@ class Comment(db.Model):
         comment.comments.clear()
     @classmethod
     def get_comments(cls,id):
-        comment =Comment.query.filter_by(blog_id=id).all()
-        return comment
+        comments =Comment.query.filter_by(blog_id=id).all()
+        return comments
 
     def delete_comment(self):
         db.session.delete(self)
         db.session.commit() 
        
     def __repr__(self):
-        return f'Blog{self.description}'
+        return f'Comment{self.comment}'
