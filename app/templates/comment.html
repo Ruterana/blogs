@@ -1,33 +1,31 @@
-{% extends 'base.html' %}
-{% import 'bootstrap/wtf.html' as wtf%}
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+{% import 'bootstrap/wtf.html' as wtf %}
+<!-- Content block -->
 {% block content %}
-<div class="container" id="allcomments">
-    {% if comments %}
+<div class="container">
+	<div class="row">
+		<div class="jumbotron">
+			{{wtf.quick_form(form)}}
+		</div>
+				<div>
+					<ul style="list-style: none;">
+						{% for comment in comments %}
+						<div class="list-group">
+							<a href="#">
+								<div class="list-item">
+									<p>{{comment.id}}</p>
+								</div>
+								<h4>{{ comment.comment}.</h4>
+                                <h6> posted {{user.user}name}}.</h6>
+                                
+							</a>
+						</div>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
 
-    <h3 class="text-center" id="coms"> All comment for the blog</h3>
-    <div class="col-md-5 commentform">
-        {{wtf.quick_form(form)}}
-    </div>
-    {% for comment in comments %}
-    <div class="card w-90 mb-3">
-        <div class="card-body">
-            <h5>{{comment.blogs.title}}</h5>
-            <p class="card-title">{{comment.comment }}</p>
-            <p class="card-text">---{{comment.user.username }}</p>
-            <a href=""></a>
-        </div>
-    </div>
-    {% endfor %}
+		</div>
 
-    {%else%}
-    <div class="card w-90 mb-3">
-        <div class="card-body">
-            <p class="card-title"> No Comments be the one who start to comment on blog</p>
-        </div>
-    </div>
-    <div class="col-md-5 ">
-        {{wtf.quick_form(form)}}
-    </div>
-    {% endif %}
-</div>
-{% endblock %}
+		{% endblock %} 
