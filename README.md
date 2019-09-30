@@ -15,7 +15,7 @@ pip install -r requirements.txt
 ## Author's information
  my name is Niyitanga charlene,Am the one who developed this application.also am a student in moringa school. to know more contact me throught my email:ncharlene38@gmail.com. and contact me through my phone number:+250783853580. 
 
-<!-- <!-- ## Technologies Used
+ ## Technologies Used
 Python 3.6
 HTML5, CSS and Bootstrap
 Flask Framework
