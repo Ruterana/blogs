@@ -1,7 +1,8 @@
 
-## blogs
+## project name 
+blogs
 
-## project Description
+<!-- ## project Description
 A web application that lets users submit pitches based on certain categories
 
 Installation Requirements
@@ -24,4 +25,4 @@ Heroku
 ## Contact information.
 for any suggestion or idear or any issues please contact me on my email:ncharlene38@gmail.com phone number:+250783853580.
 
-License and Copyright information. MIT license copyright(c)2019 charlene niyitanga permission is for free to any person who want copy of this application.
+License and Copyright information. MIT license copyright(c)2019 charlene niyitanga permission is for free to any person who want copy of this application. -->

@@ -64,17 +64,20 @@ class Comment(db.Model):
     comment= db.Column(db.String(255))
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     blog_id = db.Column(db.Integer,db.ForeignKey("blogs.id"))
-    def save_comment(self):
+    def save_comments(self):
         db.session.add(self)
         db.session.commit()
-    
+    def clear_comment(self):
+        comment.comments.clear()
     @classmethod
-    def get_comments(cls,blog):
+    def get_comments(cls,id):
         comments =Comment.query.filter_by(blog_id=id).all()
         return comments
 
-    
+    def delete_comment(self):
+        db.session.delete(self)
+        db.session.commit() 
        
     def __repr__(self):
         return f'Comment{self.comment}'
-
+        

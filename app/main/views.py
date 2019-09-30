@@ -64,7 +64,7 @@ def comment(blog_id):
     
         user_id = current_user._get_current_object().id
         new_comment = Comment(comment = comment,blog_id = blog_id,user_id = user_id)
-        new_comment.save_comment()
+        new_comment.save_comments()
         
         return redirect(url_for('.comment',blog_id = blog_id))
     return render_template('comment.html',form = form,blogs = blogs,comments = comments)
@@ -93,4 +93,3 @@ def delete_comment(id):
     db.session.commit()
     return redirect(url_for('.index'))
     return render_template('comment.html',current_post = current_post)
-    
