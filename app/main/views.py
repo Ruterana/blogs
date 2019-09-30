@@ -62,19 +62,17 @@ def delete(id):
     db.session.commit()
     return redirect(url_for('.index'))
 
-@main.route('/index/<int:id>/delete_comment', methods = ['GET','POST'])
+@main.route('/delete/blog/<int:id>', methods = ['GET','POST'])
 @login_required
-def delete_comment(id):
+def delete_blog(id):
 
-    current_post = Comment.query.filter_by(id = id).first()
-
-    if current_post.user != user_user:
-        abort(404)
-
-    db.session.delete(current_post)
+    blog = Blog.query.filter_by(id=id).first()
+    db.session.delete(blog)
     db.session.commit()
+        # blog.delete_comment()
+    
     return redirect(url_for('.index'))
-    return render_template('comment.html',current_post = current_post)
+    
 @main.route('/blog/<int:id>', methods = ['GET','POST'])    
 def view_comment(id):
     
