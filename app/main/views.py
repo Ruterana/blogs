@@ -1,7 +1,7 @@
 from flask import render_template,request,redirect,url_for,abort
 from ..models import User,Blog,Comment
 from . import main
-from .forms import blogForm
+from .forms import blogForm,CommentForm
 from .. import db,photos
 from flask_login import login_required,current_user
 import markdown2 
@@ -51,23 +51,23 @@ def new_blog():
 #         return redirect (url_for('main.index'))
 #     return render_template('comment.html',form=form,blogs=blogs)
 
-@main.route('/comment/<int:blog_id>', methods=['GET','POST'])
-def comment(blog_id):
+@main.route('/comment/<int:id>', methods=['GET','POST'])
+def comment(id):
 
     form = CommentForm()
-    blogs = Blog.query.get(blog_id)
-    comments = Comment.query.filter_by(blog_id=blog_id).all()
+    blogs = Blog.query.filter_by(id=id)
 
     if form.validate_on_submit():
         comment = form.comment.data
-        blog_id = blog_id
-    
-        user_id = current_user._get_current_object().id
-        new_comment = Comment(comment = comment,blog_id = blog_id,user_id = user_id)
-        new_comment.save_comments()
         
-        return redirect(url_for('.comment',blog_id = blog_id))
-    return render_template('comment.html',form = form,blogs = blogs,comments = comments)
+        user_id = current_user._get_current_object().id
+        blog_id = blog_id
+
+        new_comment = Comment(comment = comment,blog_id = blog.id,user_id = current_user)
+        new_comment.save_comments()
+    
+        return redirect(url_for('.comment',blog_id = id))
+    return render_template('comment.html',comment_form = form)
 
 @main.route('/index/<int:id>/delete', methods = ['GET','POST'])
 @login_required
