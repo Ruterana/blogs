@@ -23,8 +23,8 @@
                     <!-- <p>blog:{{blog.blog}}</p> -->
                     <footer class="blockquote-footer text-center" style="color:chocolate"> written by:
                         {{blog.users.username}}</footer><br>
-                        <a href='/comment/{{blog.id}}'>'comment</a>
-                
+                        <a href='/comment/{{blog.id}}' style="color:aqua">comment</a><br>
+                        <a href='/blog/{{blog.id}}'> viewcomment</a>
 
                 </div>
 
@@ -42,9 +42,8 @@
     <div class="container">
         <h3 class="name">{{comment.username}}</h3>
         {{comment.comment}}
-    
-        <p>{{blog.Comment}}</p>
-          <!-- <a href="/delete/comment/{{comment.id}}" class="=btn btn-primary">Delete Comment</a>  -->
+   
+       
     </div>
     
     

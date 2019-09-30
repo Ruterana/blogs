@@ -41,8 +41,8 @@ class Blog(db.Model):
     
     @classmethod
     def get_blogs(cls,id):
-        blog = blog.query.all()
-        # blog =Blog.query.filter_by(blog_id=blog_id).all()
+        comment =comment.query.all()
+        blog =Blog.query.filter_by(blog_id=blog_id).all()
         return Blog
     
     def delete(self, id):
@@ -80,4 +80,3 @@ class Comment(db.Model):
        
     def __repr__(self):
         return f'Comment{self.comment}'
-        

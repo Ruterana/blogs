@@ -1,0 +1,20 @@
+{%extends'base.html'%}
+{% import 'macros.html'as macro%}
+{% block styles%}
+   {{ super() }}
+   <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+{% endblock %}
+{%block content%}
+<h1 style="text-align: center">blog comment</h1>
+<div class="container">
+ 
+ <div class="row">
+   <div class="col-md-4">
+
+       <p class="name">Author:charlene</p>
+       
+       {{macro.displayComments(comments)}}
+
+   </div>
+ </div>
+ {%endblock%}
