@@ -45,7 +45,7 @@ def comment(id):
 
     if form.validate_on_submit():
         comment = form.comment.data
-        new_comment = Comment(comment = comment,blog_id=blog.id,user_id=user.id)
+        new_comment = Comment(comment = comment,blog_id=blog.id)
         new_comment.save_comments()
     
         # return redirect(url_for('.comment'))
