@@ -88,6 +88,11 @@ class Quote:
    self.id=id
    self.author=author
    self.content=content
-
+class Subscription (db.Model):
+    __tablename__="subscribers"
+    id =db.Column(db.Integer,primary_key=True)
+    name=db.Column(db.String(255))
+    email= db.Column(db.String(255), unique =True, index=True)
+    
 
 
