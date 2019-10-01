@@ -1,10 +1,10 @@
 import unittest
-from app.models import Pitch  
-Pitch = Pitch
+from app.models import blog 
+ blog = blog
 
-class PitchTest(unittest.TestCase):
+class blogTest(unittest.TestCase):
     '''
-    Test Class to test the behaviour of the Pitch class
+    Test Class to test the behaviour of the blog class
     '''
 
     def setUp(self):

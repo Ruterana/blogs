@@ -1,6 +1,7 @@
 from flask import render_template,request,redirect,url_for,abort
-from ..models import User,Blog,Comment
+from ..models import User,Blog,Comment,Quote
 from . import main
+from ..request import get_quote
 from .forms import blogForm,CommentForm
 from .. import db,photos
 from flask_login import login_required,current_user
@@ -11,11 +12,11 @@ def index():
     '''
     View root page function that returns the index page and its data
     '''
-    
+    quote=get_quote()
     blogs = Blog.query.all()
     title = 'Welcome to blog app'
     
-    return render_template('index.html', title = title,blogs=blogs)
+    return render_template('index.html', title = title,blogs=blogs,quote=quote)
 
 
 
@@ -79,3 +80,19 @@ def view_comment(id):
     # blog = Blog.query.filter_by(id=id).first()
     comments =Comment.get_comments(id=id)
     return render_template('view.html',comments=comments)
+@main.route('/update/blog/<int:id>',methods= ['GET','POST'])
+@login_required
+def update_blog(id):
+ blog=Blog.query.filter_by(id=id).first()
+ if blog is None:
+      abort(404)
+ form=UpdateBlogForm()
+ if form.validate_on_submit():
+       blog.title=form.title.data
+       blog.description=form.description.data
+       db.session.add(blog)
+       db.session.commit()
+       return redirect(url_for('main.index'))
+ return render_template('update_blog.html',form=form)
+
+

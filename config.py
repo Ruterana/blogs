@@ -1,9 +1,9 @@
 import os
 
 class Config:
-
+    QUOTE_API_BASE_URL = "http://quotes.stormconsultancy.co.uk/random.json" 
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:charlene@localhost/blog'
-
+   
     UPLOADED_PHOTOS_DEST ='app/static/photos'
     SECRET_KEY =('SECRET_KEY')
     #  email configurations
