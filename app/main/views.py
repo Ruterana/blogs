@@ -1,27 +1,32 @@
 from flask import render_template,request,redirect,url_for,abort
-from ..models import User,Blog,Comment,Quote
+from ..models import User,Blog,Comment,Quote,Subscription
 from . import main
 from ..request import get_quote
-from .forms import blogForm,CommentForm,UpdateBlogForm
+from .forms import blogForm,CommentForm,UpdateBlogForm,SubscriptionForm
 from .. import db,photos
 from flask_login import login_required,current_user
-import markdown2 
+from  ..email import mail_message
 
 @main.route('/', methods = ['GET','POST'])
 def index():
     '''
     View root page function that returns the index page and its data
     '''
+    form=SubscriptionForm()
+    if form.validate_on_submit():
+       name = form.name.data
+       email= form.email.data
+       new_subscriber=Subscription(name=name,email=email)
+       db.session.add(new_subscriber)
+       db.session.commit()
+       mail_message("Thank you for subscribing","email/welcome_user",new_subscriber.email,user=new_subscriber)
+       return redirect(url_for('main.index'))
     quote=get_quote()
     blogs = Blog.query.all()
     title = 'Welcome to blog app'
     
-    return render_template('index.html', title = title,blogs=blogs,quote=quote)
+    return render_template('index.html', title = title,blogs=blogs,quote=quote, subscription_form=form)
 
-
-
-
-   
 @main.route('/blog/new',methods=['GET','POST'])
 @login_required
 def new_blog():

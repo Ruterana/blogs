@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% import 'macros.html' as macro %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block content %}
 <div class="container" id="particles-js">
     <link href="https://fonts.googleapis.com/css?family=Space+Mono&display=swap" rel="stylesheet">
@@ -9,7 +10,7 @@
     
     
 
-    <h1 style="color:#B0BEC5  "><text-align="center">welcome to blog </h1></text-align>
+    <h1 style="color:#660000   "><text-align="center">welcome to blog </h1></text-align>
     <hr>
     <div>
         {{macro.display(blogs)}}
@@ -18,11 +19,19 @@
         {{macro.display(comments)}}
     </div>
     <div class="row">
+        <h1 style>random quote</h1>
         <blockquote class="text-center text-lg">
             <p > <strong> " {{quote.content}} " </strong> </p>
             <footer ><cite> by {{quote.author}}</cite></footer>
         </blockquote>
+    </div class>
+    <div id="card">
+        <h2 style="color:#660000">Subscribe here</h2>
+    <div id='subscription'class='container'>
+    {{wtf.quick_form(subscription_form)}}
     </div>
+    </div>
+   </div>
         </div> 
        
 {% endblock %} 
