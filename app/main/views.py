@@ -2,7 +2,7 @@ from flask import render_template,request,redirect,url_for,abort
 from ..models import User,Blog,Comment,Quote
 from . import main
 from ..request import get_quote
-from .forms import blogForm,CommentForm
+from .forms import blogForm,CommentForm,UpdateBlogForm
 from .. import db,photos
 from flask_login import login_required,current_user
 import markdown2 
