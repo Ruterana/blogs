@@ -7,6 +7,7 @@ from .. import db,photos
 from flask_login import login_required,current_user
 from  ..email import mail_message
 
+
 @main.route('/', methods = ['GET','POST'])
 def index():
     '''

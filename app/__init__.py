@@ -9,13 +9,13 @@ from flask_simplemde import SimpleMDE
 bootstrap = Bootstrap()
 db = SQLAlchemy()
 simple = SimpleMDE()
-
+mail = Mail()
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 photos = UploadSet('photos',IMAGES)
-mail = Mail()
+
 
 def create_app(config_name):
 
