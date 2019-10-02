@@ -1,4 +1,4 @@
-Hello {{user.username}}
+Hello {{new_subscriber.name}}
 Welcome to blog
 We have just seen you have signed up for our application and want to welcome you to the our blog_app.
 Please enjoy .

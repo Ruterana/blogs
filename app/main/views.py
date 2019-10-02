@@ -18,9 +18,10 @@ def index():
        name = form.name.data
        email= form.email.data
        new_subscriber=Subscription(name=name,email=email)
+    #    mail_message("Thank you for subscribing","email/welcome_user",new_subscriber.email,new_subscriber=new_subscriber)
        db.session.add(new_subscriber)
        db.session.commit()
-      
+       
        return redirect(url_for('main.index'))
     quote=get_quote()
     blogs = Blog.query.all()
